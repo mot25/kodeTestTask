@@ -29,7 +29,7 @@ const SectionWithSearch = (props: Props) => {
   const [value, setValue] = useState<StateType>({
     value: ''
   } as StateType)
-  const [isShowModal, setIsShowModal] = useState<boolean>(true)
+  const [isShowModal, setIsShowModal] = useState<boolean>(false)
   const sort = () => setIsShowModal(true)
   const changeState = (value: string | number | undefined, key: keyof StateType) => {
     setValue(produce(
@@ -56,15 +56,17 @@ const SectionWithSearch = (props: Props) => {
         >
 
           <Input
-            rightComponent={
-              {
-                icon: <Sort />,
-                fnTarget: sort
-              }
-            }
             leftComponent={
               {
                 icon: <Search />,
+              }
+            }
+            rightComponent={
+              {
+                icon: <Sort
+                  className={styles.sort}
+                />,
+                fnTarget: sort
               }
             }
             value={value.value}

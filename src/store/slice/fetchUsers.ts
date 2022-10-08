@@ -31,9 +31,9 @@ export const fetchUsers = createSlice({
 })
 
 
-// export const {
-//     setItems
-// } = fetchUsers.actions
+export const {
+    setItems
+} = fetchUsers.actions
 
-export const getUsers = (state: RootState) => state.fetchUsers
+export const getUsers = (state: RootState) => state.fetchUsers.items
 export default fetchUsers.reducer

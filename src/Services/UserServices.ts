@@ -23,6 +23,6 @@ export class UserServices {
                 __example
             }
         })
-        return response.data
+        return response.data.items
     }
 }

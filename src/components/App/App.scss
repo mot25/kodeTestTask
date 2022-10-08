@@ -1,5 +1,6 @@
 $BLACK_TEXT: #050510;
 $GRAY_TEXT: #97979B;
+$TAG_COLOR: #55555C;
 $PURPLE_BOTTOM_LINE: #6534FF;
 $BG_INPUT: #F7F7F8;
 $BG_WHITE: #FFF;
@@ -18,3 +19,46 @@ body {
 .scroll_block {
     overflow: hidden;
 }
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-button {
+    width: 21px;
+    height: 21px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: $PURPLE_BOTTOM_LINE;
+    border: 0px none #ffffff;
+    border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: $PURPLE_BOTTOM_LINE;
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: $PURPLE_BOTTOM_LINE;
+}
+
+::-webkit-scrollbar-track {
+    background: #ffffff;
+    border: 0px none #ffffff;
+    border-radius: 42px;
+}
+
+::-webkit-scrollbar-track:hover {
+    background: #ffffff;
+}
+
+::-webkit-scrollbar-track:active {
+    background: #ffffff;
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
