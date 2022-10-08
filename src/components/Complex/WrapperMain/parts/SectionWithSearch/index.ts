@@ -1,0 +1,1 @@
+export { default as SectionWithSearch } from './SectionWithSearch'

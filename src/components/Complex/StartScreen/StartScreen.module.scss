@@ -1,0 +1,16 @@
+.container {
+    max-width: 1248px;
+    min-width: 320px;
+    overflow-x: hidden;
+    // background-color: red;
+    height: 100vh;
+    margin: 0 auto;
+}
+
+
+@media (max-width: 700px) {
+    .container {
+        padding: 0 10px;
+    }
+
+}

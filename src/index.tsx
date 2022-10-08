@@ -9,6 +9,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
+  // в 18 версии строгий режим вызывал повторный рендеринг, были проблемы с дублированиям данных от бека
   // <React.StrictMode>
     <App />
   // </React.StrictMode> 
