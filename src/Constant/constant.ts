@@ -17,4 +17,12 @@ export enum Endpoints {
     SUPPORT = 'support',
     ANALYTICS = 'analytics'
 }
+
+
+
+
+export enum RoutesPage {
+    MAIN_PAGE = '/',
+    PAGE_USERS = 'pageUsers',
+}
 // android ios design management qa back_office frontend hr pr backend support analytics

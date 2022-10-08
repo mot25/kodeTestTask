@@ -1,8 +1,12 @@
 import React, { useDebugValue, useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
 
-import { Endpoints } from '../../../Constant/constant';
+import { Endpoints, RoutesPage } from '../../../Constant/constant';
 import { useAppSelector } from '../../../hooks/useStore';
 import { UserServices } from '../../../Services/UserServices';
+import { Users } from '../../Pages/Users';
+import { WrapperMain } from '../WrapperMain';
+import styles from './StartScreen.module.scss';
 
 type Props = {}
 
@@ -28,7 +32,22 @@ const StartScreen = (props: Props) => {
         getAllUsers()
     }, [])
     return (
-        <div>StartScreen</div>
+        <div
+            className={styles.container}
+        >
+            <Routes>
+                <Route
+                    path={RoutesPage.MAIN_PAGE}
+                    element={<WrapperMain />}
+                >
+                    <Route
+                        index
+                        // path={RoutesPage.PAGE_USERS}
+                        element={<Users />}
+                    />
+                </Route>
+            </Routes>
+        </div>
     )
 }
 

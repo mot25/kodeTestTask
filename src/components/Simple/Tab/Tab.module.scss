@@ -1,0 +1,18 @@
+.tabWrapper {}
+
+.tabItemWrapper {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+}
+
+.tabItemWrapper+.tabItemWrapper {
+    margin-top: 40px;
+}
+
+.textTab {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+}

@@ -1,0 +1,41 @@
+@import '../../../../App/App.scss';
+
+.tabsWrapper {
+    display: flex;
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    margin-top: 22px;
+
+}
+
+.tabsWrapper::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+.tabItem {
+    color: $GRAY_TEXT;
+    transition: color 0.4s;
+
+    cursor: pointer;
+}
+
+
+
+
+
+.tabItem_text {
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 20px;
+    padding: 8px 12px;
+    text-align: center;
+
+}
+
+.__activeTab {
+    color: $BLACK_TEXT;
+
+    border-bottom: 2px solid $PURPLE_BOTTOM_LINE;
+}

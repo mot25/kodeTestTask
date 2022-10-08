@@ -1,0 +1,28 @@
+@import '../../App/App.scss';
+
+.InputWrapper {
+    background-color: $BG_INPUT;
+    padding: 10px 14px;
+    border-radius: 16px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.input {
+    width: 100%;
+    background-color: $BG_INPUT;
+    border: none;
+    outline: none;
+    flex: 1;
+    height: 100%;
+    padding: 0 10px;
+}
+
+.leftComponent {
+    cursor: pointer;
+}
+
+.rightComponent {
+    cursor: pointer;
+}
