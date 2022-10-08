@@ -1,0 +1,11 @@
+.usersWrapper {
+    margin-top: 22px;
+   
+
+}
+
+.usersItemWrapper {
+    overflow-y: scroll;
+    flex: 1;
+    height: calc(100vh - 110px);
+}

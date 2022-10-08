@@ -2,8 +2,9 @@ import React, { useDebugValue, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import { Endpoints, RoutesPage } from '../../../Constant/constant';
-import { useAppSelector } from '../../../hooks/useStore';
+import { useAppDispatch, useAppSelector } from '../../../hooks/useStore';
 import { UserServices } from '../../../Services/UserServices';
+import { getUsers, setItems } from '../../../store/slice/fetchUsers';
 import { Users } from '../../Pages/Users';
 import { WrapperMain } from '../WrapperMain';
 import styles from './StartScreen.module.scss';
@@ -11,14 +12,14 @@ import styles from './StartScreen.module.scss';
 type Props = {}
 
 const StartScreen = (props: Props) => {
+    const dispatch = useAppDispatch()
     const getAllUsers = async () => {
         try {
             const response = await UserServices.getUsers({
                 __example: Endpoints.ALL
             })
-            console.log('====================================');
-            console.log('response', response);
-            console.log('====================================');
+            dispatch(setItems(response))
+
         } catch (error) {
             console.log('getAllUsers');
             // @ts-ignore
@@ -28,6 +29,8 @@ const StartScreen = (props: Props) => {
             console.log('====================================')
         }
     }
+    // console.log('users', JSON.stringify(users));
+
     useEffect(() => {
         getAllUsers()
     }, [])
