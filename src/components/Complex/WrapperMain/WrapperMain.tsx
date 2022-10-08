@@ -3,15 +3,20 @@ import { Outlet } from 'react-router-dom';
 
 import { SectionWithSearch } from './parts/SectionWithSearch';
 import { Tabs } from './parts/Tabs';
+import styles from './WrapperMain.module.scss';
 
 type Props = {}
 
 const WrapperMain = (props: Props) => {
   return (
-    <section>
+    <section
+      className={styles.WrapperMain}
+    >
       <SectionWithSearch />
       <Tabs />
-      <div>
+      <div
+        className={styles.outletWrapper}
+      >
         <Outlet />
       </div>
     </section>

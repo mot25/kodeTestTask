@@ -29,7 +29,7 @@ const StartScreen = (props: Props) => {
         }
     }
     useEffect(() => {
-        // getAllUsers()
+        getAllUsers()
     }, [])
     return (
         <div
@@ -41,7 +41,8 @@ const StartScreen = (props: Props) => {
                     element={<WrapperMain />}
                 >
                     <Route
-                        path={RoutesPage.PAGE_USERS}
+                        index
+                        // path={RoutesPage.PAGE_USERS}
                         element={<Users />}
                     />
                 </Route>

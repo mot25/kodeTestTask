@@ -2,6 +2,9 @@ $BLACK_TEXT: #050510;
 $GRAY_TEXT: #97979B;
 $PURPLE_BOTTOM_LINE: #6534FF;
 $BG_INPUT: #F7F7F8;
+$BG_WHITE: #FFF;
+$BG_WRAPPER_MODAL: rgba(5, 5, 16, 0.16);
+
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
 * {
@@ -10,4 +13,8 @@ $BG_INPUT: #F7F7F8;
 
 }
 body {
+}
+
+.scroll_block {
+    overflow: hidden;
 }
