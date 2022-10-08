@@ -14,6 +14,7 @@ type Props = {
         icon: ReactNode
         fnTarget?: () => void
     }
+    placeholder?: string
 }
 
 const Input: FC<Props> = ({
@@ -21,13 +22,15 @@ const Input: FC<Props> = ({
     error,
     onChange,
     leftComponent,
-    rightComponent
+    rightComponent,
+    placeholder
 }) => {
     return (
         <div
             className={styles.InputWrapper}
         >
             {leftComponent && <div
+                className={styles.leftComponent}
                 onClick={leftComponent.fnTarget}
             >
                 {leftComponent.icon}
@@ -35,9 +38,11 @@ const Input: FC<Props> = ({
             <input
                 className={styles.input}
                 value={value}
+                placeholder={placeholder}
                 onChange={e => onChange(e.target.value)}
             />
             {rightComponent && <div
+                className={styles.rightComponent}
                 onClick={rightComponent.fnTarget}
             >
                 {rightComponent.icon}
