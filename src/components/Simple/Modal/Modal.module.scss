@@ -53,6 +53,8 @@
     transform: translate(-50%, -50%);
 }
 
-.closeWrapper {}
+.closeWrapper {
+    cursor: pointer;
+}
 
 .childWrapper {}

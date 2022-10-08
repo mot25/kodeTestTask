@@ -1,20 +1,45 @@
+import produce from 'immer';
 import React, { useEffect, useState } from 'react';
 
 import { ReactComponent as Search } from '../../../../../assets/icon/Search.svg';
 import { ReactComponent as Sort } from '../../../../../assets/icon/Sort.svg';
 import { Input } from '../../../../Simple/Input';
 import { Modal } from '../../../../Simple/Modal';
+import { Tab } from '../../../../Simple/Tab';
+import { TabType } from '../../../../Simple/Tab/Tab';
 import styles from './SectionWithSearch.module.scss';
 
 type Props = {}
+type StateType = {
+  value: string
+  idSort: number | undefined
+}
 
+const TabList: TabType[] = [
+  {
+    id: 1,
+    label: 'По алфавиту'
+  },
+  {
+    id: 2,
+    label: 'По дню рождения'
+  },
+]
 const SectionWithSearch = (props: Props) => {
-  const [value, setValue] = useState<string>('')
+  const [value, setValue] = useState<StateType>({
+    value: ''
+  } as StateType)
   const [isShowModal, setIsShowModal] = useState<boolean>(true)
-
-  const sort = () => {
-    console.log('sort');
+  const sort = () => setIsShowModal(true)
+  const changeState = (value: string | number | undefined, key: keyof StateType) => {
+    setValue(produce(
+      draft => {
+        const f: any = draft
+        f[key] = value
+      }
+    ))
   }
+
 
   return (
     <>
@@ -42,8 +67,8 @@ const SectionWithSearch = (props: Props) => {
                 icon: <Search />,
               }
             }
-            value={value}
-            onChange={setValue}
+            value={value.value}
+            onChange={e => changeState(e, 'value')}
             placeholder='Введи имя, тег, почту...'
           />
         </div>
@@ -53,7 +78,11 @@ const SectionWithSearch = (props: Props) => {
         title='Сортировка'
         onClose={setIsShowModal.bind(this, false)}
       >
-        sfvsevr
+        <Tab
+          onChange={e => changeState(e, 'idSort')}
+          value={value.idSort}
+          list={TabList}
+        />
       </Modal>}
     </>
   )

@@ -1,6 +1,7 @@
-import React, { FC, ReactNode, useEffect } from 'react';
+import React, { FC, ReactNode, useEffect, useRef } from 'react';
 
 import { ReactComponent as CloseWrapper } from '../../../assets/icon/closeModal.svg';
+import useOnClickOutside from '../../../hooks/useOnClickOutside';
 import styles from './Modal.module.scss';
 
 type Props = {
@@ -17,17 +18,18 @@ const Modal: FC<Props> = ({
     isVis
 }) => {
     const body = document.querySelector('body')
+    const ref = useRef<HTMLDivElement>(null)
+    useOnClickOutside(ref, onClose)
     useEffect(() => {
         body?.classList.add('scroll_block')
-        return () => {
-            body?.classList.remove('scroll_block')
-        }
+        return () => body?.classList.remove('scroll_block')
     }, [])
     return (
         <div
             className={styles.modalWrapper}
         >
             <div
+                ref={ref}
                 className={styles.modal}
             >
                 <div
