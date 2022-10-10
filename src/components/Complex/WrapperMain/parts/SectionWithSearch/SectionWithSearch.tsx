@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import produce from 'immer';
 import React, { useEffect, useState } from 'react';
 
@@ -29,6 +30,7 @@ const SectionWithSearch = (props: Props) => {
   const [value, setValue] = useState<StateType>({
     value: ''
   } as StateType)
+  let timeout: ReturnType<typeof setTimeout>
   const [isShowModal, setIsShowModal] = useState<boolean>(false)
   const sort = () => setIsShowModal(true)
   const changeState = (value: string | number | undefined, key: keyof StateType) => {
@@ -38,9 +40,16 @@ const SectionWithSearch = (props: Props) => {
         f[key] = value
       }
     ))
+    if (key === 'idSort')
+      timeout = setTimeout(() => setIsShowModal(false), 1000)
+
   }
-
-
+  useEffect(() => {
+    return () => {
+      clearTimeout(timeout)
+    }
+  }, [])
+  
   return (
     <>
       <div className={styles.SectionWithSearchWrapper}>
@@ -58,13 +67,19 @@ const SectionWithSearch = (props: Props) => {
           <Input
             leftComponent={
               {
-                icon: <Search />,
+                icon: <Search
+                  className={classNames({
+                      [styles.__activeLoading]: true
+                  })}
+                />,
               }
             }
             rightComponent={
               {
                 icon: <Sort
-                  className={styles.sort}
+                  className={classNames(styles.sort, {
+                    [styles.__activeSort]: value.idSort !== undefined
+                  })}
                 />,
                 fnTarget: sort
               }

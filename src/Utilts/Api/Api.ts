@@ -22,7 +22,7 @@ config.baseURL = BaseApi.BASE_URL
 const instance = axios.create(config);
 
 instance.interceptors.request.use(request => {
-  console.log('Starting Request', JSON.stringify(request, null, 2))
+  // console.log('Starting Request', JSON.stringify(request, null, 2))
   return request
 })
 

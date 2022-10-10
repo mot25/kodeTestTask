@@ -5,29 +5,30 @@ $PURPLE_BOTTOM_LINE: #6534FF;
 $BG_INPUT: #F7F7F8;
 $BG_WHITE: #FFF;
 $BG_WRAPPER_MODAL: rgba(5, 5, 16, 0.16);
+$GRAY_LINE_SECTION_BORN: #C3C3C6;
 
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
 * {
     font-family: 'Inter',
-    sans-serif;
+        sans-serif;
+}
 
-}
-body {
-}
+body {}
 
 .scroll_block {
     overflow: hidden;
 }
 
 ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 2px;
+    height: 2px;
 }
 
 ::-webkit-scrollbar-button {
-    width: 21px;
-    height: 21px;
+    width: 2px;
+    height: 2px;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -61,4 +62,3 @@ body {
 ::-webkit-scrollbar-corner {
     background: transparent;
 }
-
