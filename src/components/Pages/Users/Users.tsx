@@ -45,26 +45,17 @@ const Users = (props: Props) => {
 
 
   }
-  let usersList = users
-  function filterBySearch(arr: UsersItemsType[], searchKey: string) {
-    return arr.filter((obj: any) => Object.keys((obj: keyof UsersItemsType) => {
-      console.log('obj', obj);
+  let results = [];
 
-    })
-      // .some((key) => {
-      //   // if (key === ) {
-      //   //   obj[key].includes(searchKey)
-      //   // }
-      // })
-    );
+  let toSearch = "lo";
+
+  for (let i = 0; i < usersDemo.length; i++) {
+    for (key in usersDemo[i]) {
+      if (usersDemo[i][key].indexOf(toSearch) != -1) {
+        results.push(usersDemo[i]);
+      }
+    }
   }
-  filterBySearch(usersList, search)
-  // const modeUsers = useMemo(() => {
-  //   // if (search.length > 1) {
-  //   //   usersList = filterBySearch(usersList, search)
-  //   // }
-  // }, [departamnet, sortMode, search])
-
   useEffect(() => {
     // modeUsers
     sortUsers()
