@@ -6,9 +6,7 @@ import { BaseApi, Endpoints } from '../../Constant/constant';
 import { UserServices, UsersItemsType } from '../../Services/UserServices';
 import { Api } from '../../Utilts/Api';
 
-type UsersResponseType = {
-    items: UsersItemsType[];
-}
+
 
 
 

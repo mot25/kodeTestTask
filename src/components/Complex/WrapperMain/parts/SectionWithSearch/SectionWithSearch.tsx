@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react';
 
 import { ReactComponent as Search } from '../../../../../assets/icon/Search.svg';
 import { ReactComponent as Sort } from '../../../../../assets/icon/Sort.svg';
+import { useAppDispatch } from '../../../../../hooks/useStore';
+import { setSearch, setSortMode } from '../../../../../store/slice/appStorage';
 import { Input } from '../../../../Simple/Input';
 import { Modal } from '../../../../Simple/Modal';
 import { Tab } from '../../../../Simple/Tab';
@@ -27,6 +29,7 @@ const TabList: TabType[] = [
   },
 ]
 const SectionWithSearch = (props: Props) => {
+  const dispatch = useAppDispatch()
   const [value, setValue] = useState<StateType>({
     value: ''
   } as StateType)
@@ -40,8 +43,14 @@ const SectionWithSearch = (props: Props) => {
         f[key] = value
       }
     ))
-    if (key === 'idSort')
+    if (key === 'idSort') {
       timeout = setTimeout(() => setIsShowModal(false), 1000)
+      dispatch(setSortMode(value))
+    }
+    if (key === 'value') {
+      timeout = setTimeout(() => setIsShowModal(false), 1000)
+      dispatch(setSearch(value))
+    }
 
   }
   useEffect(() => {
@@ -49,7 +58,7 @@ const SectionWithSearch = (props: Props) => {
       clearTimeout(timeout)
     }
   }, [])
-  
+
   return (
     <>
       <div className={styles.SectionWithSearchWrapper}>
@@ -69,7 +78,7 @@ const SectionWithSearch = (props: Props) => {
               {
                 icon: <Search
                   className={classNames({
-                      [styles.__activeLoading]: true
+                    [styles.__activeLoading]: true
                   })}
                 />,
               }
