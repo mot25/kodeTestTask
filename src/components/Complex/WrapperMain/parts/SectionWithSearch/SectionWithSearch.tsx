@@ -51,12 +51,17 @@ const SectionWithSearch = (props: Props) => {
 
 
   }
-
+  const [errorSearch, setErrorSearch] = useState<string>()
 
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       dispatch(setSearch(value.value))
+      if (value.value.length > 1 || !!!value.value) {
+        setErrorSearch(undefined)
+      } else {
+        setErrorSearch("Поиск состоит из 2 символов")
+      }
     }, 1000)
 
     return () => clearTimeout(delayDebounceFn)
@@ -93,6 +98,7 @@ const SectionWithSearch = (props: Props) => {
                 />,
               }
             }
+            error={errorSearch}
             rightComponent={
               {
                 icon: <Sort

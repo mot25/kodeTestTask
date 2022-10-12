@@ -7,6 +7,22 @@
     width: 100%;
     display: flex;
     align-items: center;
+    transition: all 1s;
+    border: 1px solid transparent;
+    position: relative;
+}
+
+.error {
+    border: 1px solid red;
+}
+
+.errorText {
+    position: absolute;
+    left: 12px;
+    bottom: -17px;
+    transition: all 1s;
+    color: red;
+    font-size: 12px;
 }
 
 .input {
