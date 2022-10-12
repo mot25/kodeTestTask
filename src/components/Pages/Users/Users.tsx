@@ -1,11 +1,13 @@
 import React, { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 
+import { ReactComponent as Magnifier } from '../../../assets/icon/Magnifier.svg';
 import { Endpoints } from '../../../Constant/constant';
 import { useAppSelector } from '../../../hooks/useStore';
 import { UsersItemsType } from '../../../Services/UserServices';
 import { getFilterDepartament, getSearch, getSortMode } from '../../../store/slice/appStorage';
 import { getUsers } from '../../../store/slice/fetchUsers';
 import { comapreMonth, getCurrentDay } from '../../../Utilts/helper';
+import { EmpetyValues } from '../../Simple/EmpetyValues';
 import { TextInserLine } from '../../Simple/TextInserLine';
 import { UserItem } from './path/UserItem';
 import styles from './Users.module.scss';
@@ -73,6 +75,13 @@ const Users = (props: Props) => {
     if (departamnet !== Endpoints.ALL) {
       results = results.filter(item => item.department === departamnet)
     }
+    if (!!!results.length) {
+      return < EmpetyValues
+        icon={< Magnifier />}
+        description='Попробуй скорректировать запрос'
+        title='Мы никого не нашли'
+      />
+    }
 
     if (!!!sortMode) {
       return results.map(item => <UserItem key={item.id} data={item} />)
@@ -113,6 +122,7 @@ const Users = (props: Props) => {
       >
         {/* {stateUsers.map(item => <UserItem key={item.id} data={item} />)} */}
         {modeUsers}
+
       </div>
     </div>
   )

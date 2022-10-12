@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import produce from 'immer';
+import { debounce } from 'lodash';
 import React, { useEffect, useState } from 'react';
 
 import { ReactComponent as Search } from '../../../../../assets/icon/Search.svg';
@@ -47,12 +48,21 @@ const SectionWithSearch = (props: Props) => {
       timeout = setTimeout(() => setIsShowModal(false), 1000)
       dispatch(setSortMode(value))
     }
-    if (key === 'value') {
-      timeout = setTimeout(() => setIsShowModal(false), 1000)
-      dispatch(setSearch(value))
-    }
+
 
   }
+
+
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      dispatch(setSearch(value.value))
+    }, 1000)
+
+    return () => clearTimeout(delayDebounceFn)
+  }, [value.value])
+
+
   useEffect(() => {
     return () => {
       clearTimeout(timeout)
