@@ -1,17 +1,18 @@
-import { RootState } from './../index';
 import { createSlice } from '@reduxjs/toolkit';
-import { Endpoints } from "../../Constant/constant";
+
+import { Endpoints } from '../../Constant/constant';
+import { RootState } from './..';
 
 type InitStateType = {
-    sortMode: undefined,
+    sortMode: undefined | 1 | 2,
     search: string,
     filterDepartament: Endpoints
 }
 
-const initialState = {
+const initialState: InitStateType = {
     sortMode: undefined,
     search: '',
-    filterDepartament: Endpoints
+    filterDepartament: Endpoints.ALL
 }
 
 export const appStorage = createSlice({

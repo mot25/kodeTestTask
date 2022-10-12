@@ -7,9 +7,10 @@ import styles from './UserItem.module.scss';
 
 type Props = {
     data: UsersItemsType
+    isBorn?: boolean
 }
 
-const UserItem: FC<Props> = ({ data }) => {
+const UserItem: FC<Props> = ({ data, isBorn = false }) => {
     // console.log('getCurrentDay', getCurrentDay());
 
     return (
@@ -52,7 +53,7 @@ const UserItem: FC<Props> = ({ data }) => {
                     </span>
                 </div>
             </div>
-            {true && <div
+            {isBorn && <div
                 className={styles.right}
             >
                 <p

@@ -1,5 +1,6 @@
-import React, { ReactNode, useEffect, useMemo, useState } from 'react';
+import React, { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 
+import { Endpoints } from '../../../Constant/constant';
 import { useAppSelector } from '../../../hooks/useStore';
 import { UsersItemsType } from '../../../Services/UserServices';
 import { getFilterDepartament, getSearch, getSortMode } from '../../../store/slice/appStorage';
@@ -13,6 +14,12 @@ type Props = {}
 const getMsFromMonth = (date: string) => {
   return new Date(date).getTime()
 }
+
+function SortArray(x: UsersItemsType, y: UsersItemsType) {
+  console.log('x', x, 'y', y);
+  return `${x.firstName || ''}${x.lastName || ""}${x.userTag || ''}`.localeCompare(`${y.firstName || ''}${y.lastName || ""}${y.userTag || ''}`);
+}
+
 
 const Users = (props: Props) => {
   // Получения всех пользователей
@@ -28,37 +35,74 @@ const Users = (props: Props) => {
   const [currentBirthdayUsers, setCurrentBirthdayUsers] = useState<UsersItemsType[]>([])
   const [nextBirthdayUsers, setNextBirthdayUsers] = useState<UsersItemsType[]>([])
   const [alphabetSortUsers, setAlphabetSortUsers] = useState<UsersItemsType[]>([])
-  const sortUsers = () => {
+  const sortUsers = useCallback((listUsers: UsersItemsType[]) => {
     const currentYear: UsersItemsType[] = []
     const nextYear: UsersItemsType[] = []
-    for (let i = 0; i < users.length; i++) {
-      const item = users[i]
+    for (let i = 0; i < listUsers.length; i++) {
+      const item = listUsers[i]
       if (new Date(getCurrentDay()).getTime() > new Date(comapreMonth(item.birthday)).getTime()) {
         currentYear.push(item)
       } else {
         nextYear.push(item)
       }
     }
-    setCurrentBirthdayUsers(currentYear.sort((a: UsersItemsType, b: UsersItemsType) => new Date(comapreMonth(a.birthday)).getTime() - new Date(comapreMonth(b.birthday)).getTime()))
-    setNextBirthdayUsers(nextYear.sort((a: UsersItemsType, b: UsersItemsType) => new Date(comapreMonth(a.birthday)).getTime() - new Date(comapreMonth(b.birthday)).getTime()))
 
-
-
+    return {
+      currentYear: currentYear.sort((a: UsersItemsType, b: UsersItemsType) => new Date(comapreMonth(a.birthday)).getTime() - new Date(comapreMonth(b.birthday)).getTime()),
+      nextYear: nextYear.sort((a: UsersItemsType, b: UsersItemsType) => new Date(comapreMonth(a.birthday)).getTime() - new Date(comapreMonth(b.birthday)).getTime())
+    }
+  }, [])
+  function filterIt(arr: any[], searchKey: string) {
+    return arr.filter(obj => Object.keys(obj).some(key => {
+      if (
+        key === 'firstName' ||
+        key === 'lastName' ||
+        key === 'userTag'
+      ) {
+        return obj[key].includes(searchKey)
+      }
+    }));
   }
-  let results = [];
+  const modeUsers = useMemo((): ReactNode => {
+    let results: UsersItemsType[] = [];
+    if (search.length > 1) {
+      results = filterIt(users, search)
+    } else {
+      results = users
+    }
+    if (departamnet !== Endpoints.ALL) {
+      results = results.filter(item => item.department === departamnet)
+    }
 
-  let toSearch = "lo";
+    if (!!!sortMode) {
+      return results.map(item => <UserItem key={item.id} data={item} />)
+    } else {
+      if (sortMode === 2) {
+        return <div>
+          {sortUsers(results).nextYear.map(item => <UserItem isBorn key={item.id} data={item} />)}
+          <TextInserLine
+            text={new Date().getFullYear() + 1}
+          />
+          {sortUsers(results).currentYear.map(item => <UserItem isBorn key={item.id} data={item} />)}
+        </div>
+      } else {
+        // console.log('====================================');
+        // console.log(
+        //   'results', results
+        // );
+        // console.log(
+        // );
+        results = [...results].sort((a: UsersItemsType, b: UsersItemsType) => {
+          return SortArray(a, b)
+        })
 
-  for (let i = 0; i < usersDemo.length; i++) {
-    for (key in usersDemo[i]) {
-      if (usersDemo[i][key].indexOf(toSearch) != -1) {
-        results.push(usersDemo[i]);
+        return [...results].map(item => <UserItem key={item.id} data={item} />)
       }
     }
-  }
+
+  }, [search, departamnet, users.length, users, sortMode])
+
   useEffect(() => {
-    // modeUsers
-    sortUsers()
   }, [users.length])
   return (
     <div
@@ -68,21 +112,14 @@ const Users = (props: Props) => {
         className={styles.usersItemWrapper}
       >
         {/* {stateUsers.map(item => <UserItem key={item.id} data={item} />)} */}
-        <div>
-
-          {nextBirthdayUsers.map(item => <UserItem key={item.id} data={item} />)}
-          <TextInserLine
-            text={new Date().getFullYear() + 1}
-          />
-          {currentBirthdayUsers.map(item => <UserItem key={item.id} data={item} />)}
-        </div>
+        {modeUsers}
       </div>
     </div>
   )
 }
 export default Users
 
-const usersDemo = [{
+const usersDemo: UsersItemsType[] = [{
   "id": "497f6eca-6276-4993-bfeb-53cbbbba35gs76f08",
   "avatarUrl": "https://api.lorem.space/image/face?w=120&h=120",
   "firstName": "Joseph",
