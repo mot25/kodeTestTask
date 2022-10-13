@@ -1,9 +1,8 @@
-@import '../../../App/App.scss';
+@import '../../../../App/App.scss';
 
 .UserItemWrapper {
     margin-top: 12px;
     display: flex;
-    gap: 16px;
     align-items: center;
 
 }
@@ -34,6 +33,7 @@
     font-size: 16px;
     line-height: 20px;
     color: $BLACK_TEXT;
+  
 }
 
 .shortName {
@@ -48,4 +48,22 @@
     font-size: 13px;
     line-height: 16px;
     color: $TAG_COLOR;
+}
+
+.left {
+    flex: 1;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+
+}
+
+.right {}
+
+.rightText {
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 20px;
+    color: $TAG_COLOR;
+    margin-right: 20px;
 }

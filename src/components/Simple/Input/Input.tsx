@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, { FC, ReactNode } from 'react';
 
 import styles from './Input.module.scss';
@@ -27,7 +28,9 @@ const Input: FC<Props> = ({
 }) => {
     return (
         <div
-            className={styles.InputWrapper}
+            className={classNames(styles.InputWrapper, {
+                [styles.error]: error
+            })}
         >
             {leftComponent && <div
                 className={styles.leftComponent}
@@ -47,6 +50,14 @@ const Input: FC<Props> = ({
             >
                 {rightComponent.icon}
             </div>}
+            <p
+                className={styles.errorText}
+                style={
+                    {
+                        opacity: error ? 1 : 0
+                    }
+                }
+            >{error || ""}</p>
         </div>
     )
 }

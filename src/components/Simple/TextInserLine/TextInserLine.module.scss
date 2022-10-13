@@ -1,0 +1,24 @@
+@import '../../App/App.scss';
+
+.TextInserLine {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    margin-bottom: 44px;
+}
+
+.line {
+    background-color: $GRAY_LINE_SECTION_BORN;
+    flex: 1;
+    // width: 200px;
+    height: 1px;
+}
+
+.textLine {
+    margin: 0 72px;
+    color: $GRAY_LINE_SECTION_BORN;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 20px;
+}

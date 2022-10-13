@@ -2,12 +2,14 @@ import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
 
 import fetchUsers from './slice/fetchUsers';
+import appStorage from './slice/appStorage';
 
 
 // import 
 const store = configureStore({
     reducer: {
-        fetchUsers
+        fetchUsers,
+        appStorage
     }
 })
 

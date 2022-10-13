@@ -20,7 +20,8 @@ export class UserServices {
     static async getUsers({ __example = Endpoints.ALL }: { __example?: Endpoints }): Promise<UsersItemsType[]> {
         const response = await Api.get(``, {
             params: {
-                __example
+                // __example,
+                __dynamic: true
             }
         })
         return response.data.items

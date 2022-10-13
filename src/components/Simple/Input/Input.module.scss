@@ -7,6 +7,22 @@
     width: 100%;
     display: flex;
     align-items: center;
+    transition: all 1s;
+    border: 1px solid transparent;
+    position: relative;
+}
+
+.error {
+    border: 1px solid red;
+}
+
+.errorText {
+    position: absolute;
+    left: 12px;
+    bottom: -17px;
+    transition: all 1s;
+    color: red;
+    font-size: 12px;
 }
 
 .input {
@@ -15,6 +31,10 @@
     border: none;
     outline: none;
     flex: 1;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 20px;
+    color: $BLACK_TEXT;
     caret-color: $PURPLE_BOTTOM_LINE;
     height: 100%;
     padding: 0 10px;

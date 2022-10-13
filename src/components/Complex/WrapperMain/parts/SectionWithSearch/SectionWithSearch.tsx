@@ -1,8 +1,12 @@
+import classNames from 'classnames';
 import produce from 'immer';
+import { debounce } from 'lodash';
 import React, { useEffect, useState } from 'react';
 
 import { ReactComponent as Search } from '../../../../../assets/icon/Search.svg';
 import { ReactComponent as Sort } from '../../../../../assets/icon/Sort.svg';
+import { useAppDispatch } from '../../../../../hooks/useStore';
+import { setSearch, setSortMode } from '../../../../../store/slice/appStorage';
 import { Input } from '../../../../Simple/Input';
 import { Modal } from '../../../../Simple/Modal';
 import { Tab } from '../../../../Simple/Tab';
@@ -26,9 +30,11 @@ const TabList: TabType[] = [
   },
 ]
 const SectionWithSearch = (props: Props) => {
+  const dispatch = useAppDispatch()
   const [value, setValue] = useState<StateType>({
     value: ''
   } as StateType)
+  let timeout: ReturnType<typeof setTimeout>
   const [isShowModal, setIsShowModal] = useState<boolean>(false)
   const sort = () => setIsShowModal(true)
   const changeState = (value: string | number | undefined, key: keyof StateType) => {
@@ -38,8 +44,35 @@ const SectionWithSearch = (props: Props) => {
         f[key] = value
       }
     ))
-  }
+    if (key === 'idSort') {
+      timeout = setTimeout(() => setIsShowModal(false), 1000)
+      dispatch(setSortMode(value))
+    }
 
+
+  }
+  const [errorSearch, setErrorSearch] = useState<string>()
+
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      dispatch(setSearch(value.value))
+      if (value.value.length > 1 || !!!value.value) {
+        setErrorSearch(undefined)
+      } else {
+        setErrorSearch("Поиск состоит из 2 символов")
+      }
+    }, 1000)
+
+    return () => clearTimeout(delayDebounceFn)
+  }, [value.value])
+
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(timeout)
+    }
+  }, [])
 
   return (
     <>
@@ -58,13 +91,20 @@ const SectionWithSearch = (props: Props) => {
           <Input
             leftComponent={
               {
-                icon: <Search />,
+                icon: <Search
+                  className={classNames({
+                    [styles.__activeLoading]: true
+                  })}
+                />,
               }
             }
+            error={errorSearch}
             rightComponent={
               {
                 icon: <Sort
-                  className={styles.sort}
+                  className={classNames(styles.sort, {
+                    [styles.__activeSort]: value.idSort !== undefined
+                  })}
                 />,
                 fnTarget: sort
               }
