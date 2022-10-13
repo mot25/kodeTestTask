@@ -5,8 +5,8 @@ import React, { useEffect, useState } from 'react';
 
 import { ReactComponent as Search } from '../../../../../assets/icon/Search.svg';
 import { ReactComponent as Sort } from '../../../../../assets/icon/Sort.svg';
-import { useAppDispatch } from '../../../../../hooks/useStore';
-import { setSearch, setSortMode } from '../../../../../store/slice/appStorage';
+import { useAppDispatch, useAppSelector } from '../../../../../hooks/useStore';
+import { getLoading, setSearch, setSortMode } from '../../../../../store/slice/appStorage';
 import { Input } from '../../../../Simple/Input';
 import { Modal } from '../../../../Simple/Modal';
 import { Tab } from '../../../../Simple/Tab';
@@ -30,6 +30,8 @@ const TabList: TabType[] = [
   },
 ]
 const SectionWithSearch = (props: Props) => {
+  // статус загрузки пользователей 
+  const loading = useAppSelector(getLoading)
   const dispatch = useAppDispatch()
   const [value, setValue] = useState<StateType>({
     value: ''
@@ -93,7 +95,7 @@ const SectionWithSearch = (props: Props) => {
               {
                 icon: <Search
                   className={classNames({
-                    [styles.__activeLoading]: true
+                    [styles.__activeLoading]: loading
                   })}
                 />,
               }

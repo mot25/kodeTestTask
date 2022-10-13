@@ -34,6 +34,20 @@
     color: $GRAY_TEXT;
 }
 
-.buttonWrapper {}
+.buttonWrapper {
+    margin-top: 12px;
+    cursor: pointer;
+}
 
-.button_text {}
+.button_text {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    /* identical to box height, or 125% */
+
+    text-align: center;
+
+    /* [Light] Content / Active Primary */
+
+    color: $PURPLE_BOTTOM_LINE;
+}

@@ -1,15 +1,24 @@
 import React, { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { ReactComponent as Magnifier } from '../../../assets/icon/Magnifier.svg';
+import { ReactComponent as Aliens } from '../../../assets/image/Aliens.svg';
 import { Endpoints } from '../../../Constant/constant';
-import { useAppSelector } from '../../../hooks/useStore';
-import { UsersItemsType } from '../../../Services/UserServices';
-import { getFilterDepartament, getLoading, getSearch, getSortMode } from '../../../store/slice/appStorage';
-import { getUsers } from '../../../store/slice/fetchUsers';
+import { useAppDispatch, useAppSelector } from '../../../hooks/useStore';
+import { UserServices, UsersItemsType } from '../../../Services/UserServices';
+import {
+  getFilterDepartament,
+  getGlobalError,
+  getLoading,
+  getSearch,
+  getSortMode,
+  setGlobalError,
+  setLoading,
+} from '../../../store/slice/appStorage';
+import { getUsers, setItems } from '../../../store/slice/fetchUsers';
 import { comapreMonth, getCurrentDay } from '../../../Utilts/helper';
 import { EmpetyValues } from '../../Simple/EmpetyValues';
 import { TextInserLine } from '../../Simple/TextInserLine';
-import { UserItem } from './path/UserItem';
+import { UserItem } from './parts/UserItem';
 import styles from './Users.module.scss';
 
 type Props = {}
@@ -34,6 +43,9 @@ const Users = (props: Props) => {
   const search = useAppSelector(getSearch)
   // статус загрузки пользователей 
   const loading = useAppSelector(getLoading)
+  // ошибка с запросом  к серверу
+  const errorGlobalResponse = useAppSelector(getGlobalError)
+  const dispatch = useAppDispatch()
 
 
   const [stateUsers, setStateUsers] = useState<UsersItemsType[]>([])
@@ -129,7 +141,25 @@ const Users = (props: Props) => {
     }
 
   }, [search, departamnet, loading, users.length, users, sortMode])
-  console.log(loading, 444);
+  const fnGetUsers =async () => {
+    dispatch(setLoading(true))
+    try {
+      const response = await UserServices.getUsers({
+        __example: Endpoints.ALL
+      })
+      dispatch(setItems(response))
+      dispatch(setGlobalError(false))
+
+    } catch (error: any) {
+      console.warn('getAllUsers');
+      console.warn(error.response);
+      console.warn('====================================')
+      dispatch(setGlobalError(true))
+
+    }
+    dispatch(setLoading(false))
+  }
+  console.log('errorGlobalResponse', errorGlobalResponse);
 
   useEffect(() => {
   }, [users.length])
@@ -142,10 +172,21 @@ const Users = (props: Props) => {
       >
         {/* {stateUsers.map(item => <UserItem key={item.id} data={item} />)} */}
         {
-          loading ?
-            Array(10).fill(demoUsersItem).map((item, ind) => <UserItem isLoading key={ind} data={item} />)
+          errorGlobalResponse ?
+            <EmpetyValues
+              icon={< Aliens />}
+              description='Постараемся быстро починить'
+              title='Какой-то сверхразум все сломал'
+              button={{
+                fnPress: fnGetUsers,
+                text: 'Попробовать снова'
+              }}
+            />
             :
-            modeUsers
+            loading ?
+              Array(10).fill(demoUsersItem).map((item, ind) => <UserItem isLoading key={ind} data={item} />)
+              :
+              modeUsers
         }
 
       </div>

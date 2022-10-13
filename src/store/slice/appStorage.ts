@@ -8,13 +8,17 @@ type InitStateType = {
     search: string,
     filterDepartament: Endpoints
     loading: boolean
+    globalError: boolean
+    isInternet: boolean
 }
 
 const initialState: InitStateType = {
     sortMode: undefined,
     search: '',
     filterDepartament: Endpoints.ALL,
-    loading: true
+    loading: true,
+    globalError: false,
+    isInternet: true
 }
 
 export const appStorage = createSlice({
@@ -33,6 +37,12 @@ export const appStorage = createSlice({
         setLoading: (state, action) => {
             state.loading = action.payload
         },
+        setGlobalError: (state, action) => {
+            state.globalError = action.payload
+        },
+        setIsInternet: (state, action) => {
+            state.globalError = action.payload
+        },
 
     }
 })
@@ -42,11 +52,14 @@ export const {
     setSearch,
     setSortMode,
     setFilterDepartament,
-    setLoading
+    setLoading,
+    setGlobalError
+
 } = appStorage.actions
 
 export const getSearch = (state: RootState) => state.appStorage.search
 export const getSortMode = (state: RootState) => state.appStorage.sortMode
 export const getFilterDepartament = (state: RootState) => state.appStorage.filterDepartament
 export const getLoading = (state: RootState) => state.appStorage.loading
+export const getGlobalError = (state: RootState) => state.appStorage.globalError
 export default appStorage.reducer

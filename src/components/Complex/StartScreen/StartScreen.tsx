@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import { Endpoints, RoutesPage } from '../../../Constant/constant';
 import { useAppDispatch, useAppSelector } from '../../../hooks/useStore';
 import { UserServices } from '../../../Services/UserServices';
-import { setLoading } from '../../../store/slice/appStorage';
+import { getGlobalError, setGlobalError, setLoading } from '../../../store/slice/appStorage';
 import { getUsers, setItems } from '../../../store/slice/fetchUsers';
 import { Users } from '../../Pages/Users';
 import { WrapperMain } from '../WrapperMain';
@@ -13,7 +13,14 @@ import styles from './StartScreen.module.scss';
 type Props = {}
 
 const StartScreen = (props: Props) => {
+    const errorGlobalResponse = useAppSelector(getGlobalError)
     const dispatch = useAppDispatch()
+    window.addEventListener('online', () => {
+        getAllUsers()
+    });
+    // window.addEventListener('offline', () => {
+    //     dispatch(setGlobalError(true))
+    // });
     const getAllUsers = async () => {
         dispatch(setLoading(true))
         try {
@@ -21,21 +28,25 @@ const StartScreen = (props: Props) => {
                 __example: Endpoints.ALL
             })
             dispatch(setItems(response))
+            dispatch(setGlobalError(false))
 
-        } catch (error) {
-            console.log('getAllUsers');
-            // @ts-ignore
-            console.log(error.response.config.data);
-            // @ts-ignore
-            console.log(error.response.data.message);
-            console.log('====================================')
+        } catch (error: any) {
+            console.warn('getAllUsers');
+            console.warn(error.response);
+            console.warn('====================================')
+            dispatch(setGlobalError(true))
+
         }
         dispatch(setLoading(false))
     }
 
     useEffect(() => {
-        getAllUsers()
+        // getAllUsers()
     }, [])
+    useEffect(() => {
+        getAllUsers()
+
+    }, [errorGlobalResponse])
     return (
         <div
             className={styles.container}
