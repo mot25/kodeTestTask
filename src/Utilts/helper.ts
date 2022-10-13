@@ -30,6 +30,15 @@ export const comapreMonth = (date: string) => {
     return `${returnDate2}-${returnDate[1]}-${returnDate[2]}`;
 }
 
+export const maskPhone = (value?: string) => {
+    if (value && value.length > 10) {
+        let x = value?.split('-')
+        return `+7 (${x[0]}) ${x[1]} ${x[2][0]}${x[2][1]} ${x[2][2]}${x[2][3]}`
+    } else {
+        // throw new Error("number invalid");
+        return ' '
+    }
+}
 
 export const getCurrentDay = () => {
     const year = new Date().getFullYear().toString()
@@ -69,4 +78,33 @@ export const getNameRusMonth = (date: string) => {
         default:
             return `${getDate} янв`
     }
+}
+const numberToMonth = [
+    'Январь',
+    'Февраль',
+    'Март',
+    'Апрель',
+    'Май',
+    'Июнь',
+    'Июль',
+    'Август',
+    'Сентябрь',
+    'Октябрь',
+    'Ноябрь',
+    'Декабрь',
+]
+
+export const parserDateToNoramal = (date?: string) => {
+
+    const year: string = date?.split('-')[0] || ''
+    const month: string = numberToMonth[date && (+date?.split('-')[1] - 1) || 0]
+    const day: string = date?.split('-')[2] || ''
+    return `${day} ${month} ${year }`
+}
+
+
+
+export function plural(number: number, titles: string[]) {
+    let cases: number[] = [2, 0, 1, 1, 1, 2];
+    return titles[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];
 }

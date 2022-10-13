@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { ReactComponent as Search } from '../../../../../assets/icon/Search.svg';
 import { ReactComponent as Sort } from '../../../../../assets/icon/Sort.svg';
 import { useAppDispatch, useAppSelector } from '../../../../../hooks/useStore';
-import { getLoading, setSearch, setSortMode } from '../../../../../store/slice/appStorage';
+import { getLoading, getSearch, setSearch, setSortMode } from '../../../../../store/slice/appStorage';
 import { Input } from '../../../../Simple/Input';
 import { Modal } from '../../../../Simple/Modal';
 import { Tab } from '../../../../Simple/Tab';
@@ -31,12 +31,14 @@ const TabList: TabType[] = [
 ]
 const SectionWithSearch = (props: Props) => {
   // статус загрузки пользователей 
+  const search = useAppSelector(getSearch)
   const loading = useAppSelector(getLoading)
   const dispatch = useAppDispatch()
   const [value, setValue] = useState<StateType>({
-    value: ''
+    value: search || ""
   } as StateType)
   let timeout: ReturnType<typeof setTimeout>
+  const [errorSearch, setErrorSearch] = useState<string>()
   const [isShowModal, setIsShowModal] = useState<boolean>(false)
   const sort = () => setIsShowModal(true)
   const changeState = (value: string | number | undefined, key: keyof StateType) => {
@@ -53,15 +55,14 @@ const SectionWithSearch = (props: Props) => {
 
 
   }
-  const [errorSearch, setErrorSearch] = useState<string>()
-
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       dispatch(setSearch(value.value))
-      if (value.value.length > 1 || !!!value.value) {
+      if (value.value.length > 1 || value.value.length === 0) {
         setErrorSearch(undefined)
       } else {
+
         setErrorSearch("Поиск состоит из 2 символов")
       }
     }, 1000)

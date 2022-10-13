@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/useStore';
 import { useGeUsersQuery, UserServices } from '../../../Services/UserServices';
 import { getGlobalError, getIsInternet, setGlobalError, setIsInternet, setLoading } from '../../../store/slice/appStorage';
 import { getUsers, setItems } from '../../../store/slice/fetchUsers';
+import { Details } from '../../Pages/Details';
 import { Users } from '../../Pages/Users';
 import { WrapperMain } from '../WrapperMain';
 import styles from './StartScreen.module.scss';
@@ -78,6 +79,16 @@ const StartScreen = (props: Props) => {
                         element={<Users />}
                     />
                 </Route>
+                <Route
+                    path={`${RoutesPage.DETAILS_PAGE}/:id`}
+                    element={
+                        <Details />
+                    }
+                />
+                <Route
+                    path={RoutesPage.ALL}
+                    element={<Users />}
+                />
             </Routes>
         </div>
     )

@@ -24,5 +24,7 @@ export enum Endpoints {
 export enum RoutesPage {
     MAIN_PAGE = '/',
     PAGE_USERS = 'pageUsers',
+    DETAILS_PAGE = '/details',
+    ALL = '*'
 }
 // android ios design management qa back_office frontend hr pr backend support analytics

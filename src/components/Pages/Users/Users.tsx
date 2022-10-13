@@ -27,7 +27,6 @@ const getMsFromMonth = (date: string) => {
 }
 
 function SortArray(x: UsersItemsType, y: UsersItemsType) {
-  console.log('x', x, 'y', y);
   return `${x.firstName || ''}${x.lastName || ""}${x.userTag || ''}`.localeCompare(`${y.firstName || ''}${y.lastName || ""}${y.userTag || ''}`);
 }
 
@@ -76,7 +75,7 @@ const Users = (props: Props) => {
         key === 'lastName' ||
         key === 'userTag'
       ) {
-        return obj[key].includes(searchKey)
+        return obj[key].toUpperCase().includes(searchKey.toUpperCase())
       }
     }));
   }
@@ -126,12 +125,6 @@ const Users = (props: Props) => {
           {sortUsers(results).currentYear.map(item => <UserItem isBorn key={item.id} data={item} />)}
         </div>
       } else {
-        // console.log('====================================');
-        // console.log(
-        //   'results', results
-        // );
-        // console.log(
-        // );
         results = [...results].sort((a: UsersItemsType, b: UsersItemsType) => {
           return SortArray(a, b)
         })
@@ -141,9 +134,6 @@ const Users = (props: Props) => {
     }
 
   }, [search, departamnet, loading, users, sortMode])
-  console.log('====================================');
-  console.log(users?.length, 'users?.length,');
-  console.log('====================================');
   const { data, isLoading, isError, refetch } = useGeUsersQuery({}, {
     pollingInterval: 300000
   })

@@ -20,20 +20,12 @@ const WrapperMain = () => {
     if (!isInternet) {
       setVisTop(true)
     }
-    // delayDebounceFn = setTimeout(() => {
     if (!isLoading && isInternet) {
-      console.log('====================================');
-      console.log('remove');
-      console.log('====================================');
       setVisTop(false)
     }
   }
   useEffect(() => {
-
-    // }, 2000)
-    // setInterval(() => {
     checkStatusTop()
-    // }, 500)
     return () => clearTimeout(delayDebounceFn)
   }, [isInternet, isLoading])
   return (

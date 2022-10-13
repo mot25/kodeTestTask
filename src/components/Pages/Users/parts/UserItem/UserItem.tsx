@@ -2,8 +2,10 @@ import 'react-loading-skeleton/dist/skeleton.css';
 
 import React, { FC, PropsWithChildren } from 'react';
 import Skeleton from 'react-loading-skeleton';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { ReactComponent as Goose } from '../../../../../assets/image/Goose.svg';
+import { RoutesPage } from '../../../../../Constant/constant';
 import { UsersItemsType } from '../../../../../Services/UserServices';
 import { getCurrentDay, getNameRusMonth } from '../../../../../Utilts/helper';
 import styles from './UserItem.module.scss';
@@ -14,8 +16,11 @@ type Props = {
     isLoading?: boolean
 }
 const UserItem: FC<Props> = ({ data, isLoading = false, isBorn = false }) => {
+  
     return (
-        <div
+        <Link
+            style={{ textDecoration: 'none' }}
+            to={`${RoutesPage.DETAILS_PAGE}/${data.id}`}
             className={styles.UserItemWrapper}
         >
             <div
@@ -91,7 +96,7 @@ const UserItem: FC<Props> = ({ data, isLoading = false, isBorn = false }) => {
                     {getNameRusMonth(data.birthday)}
                 </p>
             </div>}
-        </div>
+        </Link>
     )
 }
 
