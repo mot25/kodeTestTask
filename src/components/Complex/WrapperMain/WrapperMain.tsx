@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../../hooks/useStore';
-import { getIsInternet, getLoading } from '../../../store/slice/appStorage';
+import { getIsInternet, getLoading, setLoading } from '../../../store/slice/appStorage';
+import { getUsers } from '../../../store/slice/fetchUsers';
 import { TopStatusJoin } from '../../Simple/TopStatusJoin';
 import { SectionWithSearch } from './parts/SectionWithSearch';
 import { Tabs } from './parts/Tabs';
@@ -15,13 +16,16 @@ const WrapperMain = () => {
   const dispatch = useAppDispatch()
   const [visTop, setVisTop] = useState<boolean>(false)
   let delayDebounceFn: ReturnType<typeof setTimeout>
+  const users = useAppSelector(getUsers)
 
   const checkStatusTop = () => {
     if (!isInternet) {
       setVisTop(true)
     }
     if (!isLoading && isInternet) {
-      setVisTop(false)
+      // delayDebounceFn = setTimeout(() => {
+        setVisTop(false)
+      // }, 200)
     }
   }
   useEffect(() => {

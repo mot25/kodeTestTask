@@ -18,7 +18,6 @@ export const store = configureStore({
             serializableCheck: false
         })
             .concat(usersApi.middleware)
-        // .concat(ordersApi.middleware)
     }
 })
 

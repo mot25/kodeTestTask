@@ -20,6 +20,7 @@ const StartScreen = (props: Props) => {
     window.addEventListener('online', () => {
         refetch()
         dispatch(setIsInternet(true))
+        dispatch(setLoading(true))
 
     });
     window.addEventListener('offline', () => {
@@ -48,7 +49,7 @@ const StartScreen = (props: Props) => {
     useEffect(() => {
         dispatch(setIsInternet(navigator.onLine))
     }, [])
-    const { data, isLoading, isError, refetch } = useGeUsersQuery({}, {
+    const { data, isError, isLoading, refetch } = useGeUsersQuery({}, {
     })
 
     dispatch(setItems(data))
@@ -57,9 +58,7 @@ const StartScreen = (props: Props) => {
     useEffect(() => {
         dispatch(setItems(data))
     }, [data])
-    useEffect(() => {
-        // refetch()
-    }, [errorGlobalResponse])
+
     useEffect(() => {
         getAllUsers()
     }, [])

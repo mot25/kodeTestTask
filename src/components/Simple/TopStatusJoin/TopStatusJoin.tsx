@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useAppSelector } from '../../../hooks/useStore';
 import { getIsInternet, getLoading } from '../../../store/slice/appStorage';
@@ -7,8 +7,19 @@ import styles from './TopStatusJoin.module.scss';
 type Props = {}
 
 const TopStatusJoin = (props: Props) => {
-    const isInternet = useAppSelector(getIsInternet)
+    const [isInternet, setIsInternet] = useState<boolean>()
     const isLoading = useAppSelector(getLoading)
+    window.addEventListener('online', () => {
+        setIsInternet(true)
+
+    });
+    window.addEventListener('offline', () => {
+        setIsInternet(false)
+
+    });
+    useEffect(() => {
+        setIsInternet(navigator.onLine)
+    }, [])
     return (
         <div
             className={styles.topWrapper}

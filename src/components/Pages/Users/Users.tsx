@@ -45,12 +45,6 @@ const Users = (props: Props) => {
   // ошибка с запросом  к серверу
   const errorGlobalResponse = useAppSelector(getGlobalError)
   const dispatch = useAppDispatch()
-
-
-  const [stateUsers, setStateUsers] = useState<UsersItemsType[]>([])
-  const [currentBirthdayUsers, setCurrentBirthdayUsers] = useState<UsersItemsType[]>([])
-  const [nextBirthdayUsers, setNextBirthdayUsers] = useState<UsersItemsType[]>([])
-  const [alphabetSortUsers, setAlphabetSortUsers] = useState<UsersItemsType[]>([])
   const sortUsers = useCallback((listUsers: UsersItemsType[]) => {
     const currentYear: UsersItemsType[] = []
     const nextYear: UsersItemsType[] = []
@@ -134,11 +128,11 @@ const Users = (props: Props) => {
     }
 
   }, [search, departamnet, loading, users, sortMode])
-  const { data, isLoading, isError, refetch } = useGeUsersQuery({}, {
+  const { data, isError, refetch } = useGeUsersQuery({}, {
     pollingInterval: 300000
   })
   dispatch(setGlobalError(isError))
-  dispatch(setLoading(isLoading))
+  // dispatch(setLoading(isLoading))
   dispatch(setItems(data))
 
   const fnGetUsers = async () => {

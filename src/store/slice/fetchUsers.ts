@@ -1,10 +1,7 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createSlice } from '@reduxjs/toolkit';
 
 import { RootState } from '..';
-import { BaseApi, Endpoints } from '../../Constant/constant';
-import { UserServices, UsersItemsType } from '../../Services/UserServices';
-import { Api } from '../../Utilts/Api';
+import { UsersItemsType } from '../../Services/UserServices';
 
 
 
