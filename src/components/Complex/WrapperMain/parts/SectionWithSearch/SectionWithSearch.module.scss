@@ -49,3 +49,9 @@
     animation-timing-function: ease;
     animation-iteration-count: infinite;
 }
+
+@media (max-width: 700px) {
+    .top_title {
+        margin-left: 15px;
+    }
+}

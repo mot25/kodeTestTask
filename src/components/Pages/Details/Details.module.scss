@@ -94,7 +94,13 @@
 
 .iconWrapper {}
 
-.leftText {}
+.leftText {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+
+    color: $BLACK_TEXT;
+}
 
 .right {
     font-weight: 500;
@@ -124,4 +130,35 @@
 
 .leftText {
     margin-left: 13px;
+}
+
+@media (max-width: 800px) {
+    .bottom {
+        padding: 0 10px;
+    }
+}
+
+@media (max-width: 520px) {
+    .top {
+        padding-top: 35px;
+        padding-bottom: 43px;
+    }
+
+    .bottomWtapperItem {
+        margin-bottom: 22px;
+    }
+}
+
+@media (max-width: 460px) {
+    .top {
+        padding-top: 35px;
+        padding-bottom: 43px;
+    }
+
+    .bottomWtapperItem {
+        margin-bottom: 22px;
+    }
+    .leftText {
+        font-size: 16px;
+    }
 }
