@@ -23,9 +23,9 @@ const WrapperMain = () => {
       setVisTop(true)
     }
     if (!isLoading && isInternet) {
-      // delayDebounceFn = setTimeout(() => {
+      delayDebounceFn = setTimeout(() => {
         setVisTop(false)
-      // }, 200)
+      }, 200)
     }
   }
   useEffect(() => {

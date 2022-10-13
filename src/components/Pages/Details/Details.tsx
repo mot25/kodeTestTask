@@ -20,7 +20,7 @@ const Details = (props: Props) => {
   const { id } = useParams()
   const [user, setUser] = useState<UsersItemsType | undefined>()
   useEffect(() => {
-    setUser(users?.find(item => item.id === id))
+    setUser(users?.find((item: { id: string | undefined; }) => item.id === id))
   }, [id, users])
 
   const getYearPeople = () => {
