@@ -1,39 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
+import { ReactComponent as BackArrow } from '../../../assets/icon/BackArrow.svg';
 import { ReactComponent as Favorites } from '../../../assets/icon/Favorite.svg';
 import { ReactComponent as Phone } from '../../../assets/icon/Phone.svg';
 import { useAppDispatch, useAppSelector } from '../../../hooks/useStore';
 import { useGeUsersQuery, UsersItemsType } from '../../../Services/UserServices';
 import { setGlobalError, setLoading } from '../../../store/slice/appStorage';
 import { getUsers, setItems } from '../../../store/slice/fetchUsers';
-import { maskPhone, parserDateToNoramal } from '../../../Utilts/helper';
+import { maskPhone, parserDateToNoramal, plural } from '../../../Utilts/helper';
 import styles from './Details.module.scss';
 
 type Props = {}
-function plural(number: number, titles: string[]) {
-  let cases: number[] = [2, 0, 1, 1, 1, 2];
-  return titles[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];
-}
+
 const Details = (props: Props) => {
   const users = useAppSelector(getUsers)
+  const navigate = useNavigate();
+
   const { id } = useParams()
   const [user, setUser] = useState<UsersItemsType | undefined>()
-  const [year, setYear] = useState<string>('')
   useEffect(() => {
     setUser(users?.find(item => item.id === id))
   }, [id, users])
 
   const getYearPeople = () => {
-    let count = (new Date().getFullYear() - new Date(user?.birthday || '').getFullYear())
+    const count = (new Date().getFullYear() - new Date(user?.birthday || '').getFullYear())
     return `${count} ${plural(count, ['год', 'года', 'лет'])}`
-
   }
-
-  useEffect(() => {
-    console.log('====================================');
-    console.log('====================================');
-  }, [user?.birthday])
   return (
     <section
       className={styles.Details}
@@ -41,6 +34,12 @@ const Details = (props: Props) => {
       <div
         className={styles.top}
       >
+        <div
+          onClick={navigate.bind(this, -1)}
+          className={styles.backWrapper}
+        >
+          <BackArrow />
+        </div>
         <div
           className={styles.top_content}
         >
