@@ -7,27 +7,33 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/useStore';
 import { useGeUsersQuery, UsersItemsType } from '../../../Services/UserServices';
 import { setGlobalError, setLoading } from '../../../store/slice/appStorage';
 import { getUsers, setItems } from '../../../store/slice/fetchUsers';
-import { declOfNum, maskPhone, parserDateToNoramal } from '../../../Utilts/helper';
+import { maskPhone, parserDateToNoramal } from '../../../Utilts/helper';
 import styles from './Details.module.scss';
 
 type Props = {}
-
+function plural(number: number, titles: string[]) {
+  let cases: number[] = [2, 0, 1, 1, 1, 2];
+  return titles[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];
+}
 const Details = (props: Props) => {
-  const dispatch = useAppDispatch()
-  // Получения всех пользователей
   const users = useAppSelector(getUsers)
   const { id } = useParams()
-
-  const [user, setUsers] = useState<UsersItemsType | undefined>()
+  const [user, setUser] = useState<UsersItemsType | undefined>()
+  const [year, setYear] = useState<string>('')
   useEffect(() => {
-    setUsers(users?.find(item => item.id === id))
+    setUser(users?.find(item => item.id === id))
   }, [id, users])
 
+  const getYearPeople = () => {
+    let count = (new Date().getFullYear() - new Date(user?.birthday || '').getFullYear())
+    return `${count} ${plural(count, ['год', 'года', 'лет'])}`
 
+  }
 
-
-  const getYearsPeople = (date: string): number => new Date().getFullYear() - new Date(date).getFullYear()
-
+  useEffect(() => {
+    console.log('====================================');
+    console.log('====================================');
+  }, [user?.birthday])
   return (
     <section
       className={styles.Details}
@@ -87,8 +93,7 @@ const Details = (props: Props) => {
           <div
             className={styles.right}
           >
-
-            <span>{declOfNum(+getYearsPeople(user?.birthday || ''), ['год', 'года', 'лет'])} </span>
+            <span>{getYearPeople()} </span>
           </div>
         </div>
         <div
