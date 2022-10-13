@@ -99,13 +99,16 @@ export const parserDateToNoramal = (date?: string) => {
     const year: string = date?.split('-')[0] || ''
     const month: string = numberToMonth[date && (+date?.split('-')[1] - 1) || 0]
     const day: string = date?.split('-')[2] || ''
-    console.log('====================================');
-    console.log('mobyh',);
-    console.log('====================================');
     return `${day} ${month} ${year }`
-    console.log('====================================');
-    console.log('year', year);
-    console.log('month', month);
-    console.log('====================================');
-    return `eeeeeee`
+}
+
+
+
+export function declOfNum(n: number, text_forms: string[]) {
+    n = Math.abs(n) % 100;
+    var n1 = n % 10;
+    if (n > 10 && n < 20) { return text_forms[2]; }
+    if (n1 > 1 && n1 < 5) { return text_forms[1]; }
+    if (n1 == 1) { return text_forms[0]; }
+    return text_forms[2];
 }

@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/useStore';
 import { useGeUsersQuery, UsersItemsType } from '../../../Services/UserServices';
 import { setGlobalError, setLoading } from '../../../store/slice/appStorage';
 import { getUsers, setItems } from '../../../store/slice/fetchUsers';
-import { maskPhone, parserDateToNoramal } from '../../../Utilts/helper';
+import { declOfNum, maskPhone, parserDateToNoramal } from '../../../Utilts/helper';
 import styles from './Details.module.scss';
 
 type Props = {}
@@ -20,25 +20,14 @@ const Details = (props: Props) => {
 
   const [user, setUsers] = useState<UsersItemsType | undefined>()
   useEffect(() => {
-    console.log('====================================');
-    // console.log(id, 'id');
-    console.log(users?.find(item => item.id === id), 'users');
-    console.log('====================================');
-    console.log(
-      setUsers(users?.find(item => item.id === id))
-    );
-
+    setUsers(users?.find(item => item.id === id))
   }, [id, users])
 
 
-  
-  console.log('====================================');
-  console.log(
-    
-    'parserDateToNoramal(user?.birthday || "")',
-    (user?.birthday || "")
-  );
-  console.log('====================================');
+
+
+  const getYearsPeople = (date: string): number => new Date().getFullYear() - new Date(date).getFullYear()
+
   return (
     <section
       className={styles.Details}
@@ -98,7 +87,8 @@ const Details = (props: Props) => {
           <div
             className={styles.right}
           >
-            <span>24 </span>
+
+            <span>{declOfNum(+getYearsPeople(user?.birthday || ''), ['год', 'года', 'лет'])} </span>
           </div>
         </div>
         <div
