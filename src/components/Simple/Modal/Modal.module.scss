@@ -58,3 +58,23 @@
 }
 
 .childWrapper {}
+
+@media (max-width: 450px) {
+    .modal {
+        max-width: 290px;
+    }
+}
+
+@media (max-width: 390px) {
+    .modal {
+        max-width: 254px;
+    }
+}
+
+@media (max-width:330px) {
+    title {
+
+        font-size: 17px;
+
+    }
+}
