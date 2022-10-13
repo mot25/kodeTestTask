@@ -9,6 +9,7 @@ import store from '../../store';
 import { StartScreen } from '../Complex/StartScreen';
 import { WrapperMain } from '../Complex/WrapperMain';
 
+
 function App() {
   return (
     <Provider store={store}>
