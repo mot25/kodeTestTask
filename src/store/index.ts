@@ -1,15 +1,24 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
 
-import fetchUsers from './slice/fetchUsers';
+import { usersApi } from '../Services/UserServices';
 import appStorage from './slice/appStorage';
+import fetchUsers from './slice/fetchUsers';
 
 
-// import 
-const store = configureStore({
+
+export const store = configureStore({
     reducer: {
         fetchUsers,
-        appStorage
+        appStorage,
+        [usersApi.reducerPath]: usersApi.reducer
+    },
+    middleware: (getDefaultMiddleware) => {
+        return getDefaultMiddleware({
+            serializableCheck: false
+        })
+            .concat(usersApi.middleware)
+        // .concat(ordersApi.middleware)
     }
 })
 

@@ -21,7 +21,7 @@ export const fetchUsers = createSlice({
     name: 'fetchUsers',
     initialState,
     reducers: {
-        setItems: (state, action: PayloadAction<UsersItemsType[]>) => {
+        setItems: (state, action) => {
             state.items = action.payload
         }
     },

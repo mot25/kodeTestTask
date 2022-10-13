@@ -4,7 +4,7 @@ import { ReactComponent as Magnifier } from '../../../assets/icon/Magnifier.svg'
 import { ReactComponent as Aliens } from '../../../assets/image/Aliens.svg';
 import { Endpoints } from '../../../Constant/constant';
 import { useAppDispatch, useAppSelector } from '../../../hooks/useStore';
-import { UserServices, UsersItemsType } from '../../../Services/UserServices';
+import { useGeUsersQuery, UserServices, UsersItemsType } from '../../../Services/UserServices';
 import {
   getFilterDepartament,
   getGlobalError,
@@ -106,7 +106,7 @@ const Users = (props: Props) => {
     if (departamnet !== Endpoints.ALL) {
       results = results.filter(item => item.department === departamnet)
     }
-    if (!!!results.length) {
+    if (!!!results?.length) {
       return <EmpetyValues
         icon={< Magnifier />}
         description='Попробуй скорректировать запрос'
@@ -140,29 +140,24 @@ const Users = (props: Props) => {
       }
     }
 
-  }, [search, departamnet, loading, users.length, users, sortMode])
-  const fnGetUsers =async () => {
-    dispatch(setLoading(true))
-    try {
-      const response = await UserServices.getUsers({
-        __example: Endpoints.ALL
-      })
-      dispatch(setItems(response))
-      dispatch(setGlobalError(false))
+  }, [search, departamnet, loading, users, sortMode])
+  console.log('====================================');
+  console.log(users?.length, 'users?.length,');
+  console.log('====================================');
+  const { data, isLoading, isError, refetch } = useGeUsersQuery({}, {
+    pollingInterval: 300000
+  })
+  dispatch(setGlobalError(isError))
+  dispatch(setLoading(isLoading))
+  dispatch(setItems(data))
 
-    } catch (error: any) {
-      console.warn('getAllUsers');
-      console.warn(error.response);
-      console.warn('====================================')
-      dispatch(setGlobalError(true))
-
-    }
-    dispatch(setLoading(false))
+  const fnGetUsers = async () => {
+    refetch()
   }
-  console.log('errorGlobalResponse', errorGlobalResponse);
 
   useEffect(() => {
-  }, [users.length])
+
+  }, [users?.length])
   return (
     <div
       className={styles.usersWrapper}

@@ -41,7 +41,7 @@ export const appStorage = createSlice({
             state.globalError = action.payload
         },
         setIsInternet: (state, action) => {
-            state.globalError = action.payload
+            state.isInternet = action.payload
         },
 
     }
@@ -53,7 +53,8 @@ export const {
     setSortMode,
     setFilterDepartament,
     setLoading,
-    setGlobalError
+    setGlobalError,
+    setIsInternet,
 
 } = appStorage.actions
 
@@ -62,4 +63,5 @@ export const getSortMode = (state: RootState) => state.appStorage.sortMode
 export const getFilterDepartament = (state: RootState) => state.appStorage.filterDepartament
 export const getLoading = (state: RootState) => state.appStorage.loading
 export const getGlobalError = (state: RootState) => state.appStorage.globalError
+export const getIsInternet = (state: RootState) => state.appStorage.isInternet
 export default appStorage.reducer

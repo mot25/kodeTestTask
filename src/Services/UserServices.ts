@@ -1,6 +1,7 @@
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { config } from 'process';
 
-import { Endpoints } from '../Constant/constant';
+import { BaseApi, Endpoints } from '../Constant/constant';
 import { Api } from '../Utilts/Api';
 import { toQueryString } from '../Utilts/helper';
 
@@ -27,3 +28,30 @@ export class UserServices {
         return response.data.items
     }
 }
+
+export const usersApi = createApi({
+    reducerPath: 'usersApi',
+    baseQuery: fetchBaseQuery({
+        baseUrl: BaseApi.BASE_URL,
+        prepareHeaders: (headers, { getState }) => {
+            return headers
+        },
+    }),
+    endpoints: (builder) => ({
+        geUsers: builder.query({
+            query: () => ({
+                url: '',
+                params: {
+                    __dynamic: true
+                }
+            }),
+            transformResponse: (data: { items: UsersItemsType }) => {
+                return !!data?.items ? data.items : []
+            },
+        }),
+
+
+    })
+})
+
+export const { useGeUsersQuery } = usersApi
