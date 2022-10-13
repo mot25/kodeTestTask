@@ -4,7 +4,7 @@ import { ReactComponent as Magnifier } from '../../../assets/icon/Magnifier.svg'
 import { Endpoints } from '../../../Constant/constant';
 import { useAppSelector } from '../../../hooks/useStore';
 import { UsersItemsType } from '../../../Services/UserServices';
-import { getFilterDepartament, getSearch, getSortMode } from '../../../store/slice/appStorage';
+import { getFilterDepartament, getLoading, getSearch, getSortMode } from '../../../store/slice/appStorage';
 import { getUsers } from '../../../store/slice/fetchUsers';
 import { comapreMonth, getCurrentDay } from '../../../Utilts/helper';
 import { EmpetyValues } from '../../Simple/EmpetyValues';
@@ -32,6 +32,9 @@ const Users = (props: Props) => {
   const sortMode = useAppSelector(getSortMode)
   // Значения из инпута 
   const search = useAppSelector(getSearch)
+  // статус загрузки пользователей 
+  const loading = useAppSelector(getLoading)
+
 
   const [stateUsers, setStateUsers] = useState<UsersItemsType[]>([])
   const [currentBirthdayUsers, setCurrentBirthdayUsers] = useState<UsersItemsType[]>([])
@@ -65,7 +68,23 @@ const Users = (props: Props) => {
       }
     }));
   }
+  const demoUsersItem: UsersItemsType = {
+    "id": "497f6eca-6276-4993-bfeb-53gasfaf08",
+    "avatarUrl": "https://api.lorem.space/image/face?w=120&h=120",
+    "firstName": "Mike",
+    "lastName": "Smith",
+    "userTag": "ms",
+    "department": "ios",
+    "position": "IOS developer",
+    "birthday": "1992-04-14",
+    "phone": "+79001234512"
+  }
+
+
+
   const modeUsers = useMemo((): ReactNode => {
+
+
     let results: UsersItemsType[] = [];
     if (search.length > 1) {
       results = filterIt(users, search)
@@ -76,7 +95,7 @@ const Users = (props: Props) => {
       results = results.filter(item => item.department === departamnet)
     }
     if (!!!results.length) {
-      return < EmpetyValues
+      return <EmpetyValues
         icon={< Magnifier />}
         description='Попробуй скорректировать запрос'
         title='Мы никого не нашли'
@@ -109,7 +128,8 @@ const Users = (props: Props) => {
       }
     }
 
-  }, [search, departamnet, users.length, users, sortMode])
+  }, [search, departamnet, loading, users.length, users, sortMode])
+  console.log(loading, 444);
 
   useEffect(() => {
   }, [users.length])
@@ -121,7 +141,12 @@ const Users = (props: Props) => {
         className={styles.usersItemWrapper}
       >
         {/* {stateUsers.map(item => <UserItem key={item.id} data={item} />)} */}
-        {modeUsers}
+        {
+          loading ?
+            Array(10).fill(demoUsersItem).map((item, ind) => <UserItem isLoading key={ind} data={item} />)
+            :
+            modeUsers
+        }
 
       </div>
     </div>

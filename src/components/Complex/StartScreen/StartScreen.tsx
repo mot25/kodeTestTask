@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import { Endpoints, RoutesPage } from '../../../Constant/constant';
 import { useAppDispatch, useAppSelector } from '../../../hooks/useStore';
 import { UserServices } from '../../../Services/UserServices';
+import { setLoading } from '../../../store/slice/appStorage';
 import { getUsers, setItems } from '../../../store/slice/fetchUsers';
 import { Users } from '../../Pages/Users';
 import { WrapperMain } from '../WrapperMain';
@@ -14,6 +15,7 @@ type Props = {}
 const StartScreen = (props: Props) => {
     const dispatch = useAppDispatch()
     const getAllUsers = async () => {
+        dispatch(setLoading(true))
         try {
             const response = await UserServices.getUsers({
                 __example: Endpoints.ALL
@@ -28,8 +30,8 @@ const StartScreen = (props: Props) => {
             console.log(error.response.data.message);
             console.log('====================================')
         }
+        dispatch(setLoading(false))
     }
-    // console.log('users', JSON.stringify(users));
 
     useEffect(() => {
         getAllUsers()

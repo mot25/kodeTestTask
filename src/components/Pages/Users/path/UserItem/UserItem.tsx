@@ -1,4 +1,7 @@
-import React, { FC } from 'react';
+import 'react-loading-skeleton/dist/skeleton.css';
+
+import React, { FC, PropsWithChildren } from 'react';
+import Skeleton from 'react-loading-skeleton';
 
 import { ReactComponent as Goose } from '../../../../../assets/image/Goose.svg';
 import { UsersItemsType } from '../../../../../Services/UserServices';
@@ -8,11 +11,9 @@ import styles from './UserItem.module.scss';
 type Props = {
     data: UsersItemsType
     isBorn?: boolean
+    isLoading?: boolean
 }
-
-const UserItem: FC<Props> = ({ data, isBorn = false }) => {
-    // console.log('getCurrentDay', getCurrentDay());
-
+const UserItem: FC<Props> = ({ data, isLoading = false, isBorn = false }) => {
     return (
         <div
             className={styles.UserItemWrapper}
@@ -24,13 +25,21 @@ const UserItem: FC<Props> = ({ data, isBorn = false }) => {
                     className={styles.imageWrapper}
                 >
                     {
-                        data.avatarUrl ?
-                            <img
-                                className={styles.image}
-                                src={data.avatarUrl}
+                        isLoading ?
+
+                            <Skeleton
+                                circle
+                                width={72}
+                                height={72}
                             />
                             :
-                            <Goose />
+                            data.avatarUrl ?
+                                <img
+                                    className={styles.image}
+                                    src={data.avatarUrl}
+                                />
+                                :
+                                <Goose />
                     }
                 </div>
                 <div
@@ -39,17 +48,37 @@ const UserItem: FC<Props> = ({ data, isBorn = false }) => {
                     <div
                         className={styles.nameWrapper}
                     >
-                        <p
-                            className={styles.name}
-                        >{`${data.firstName} ${data.lastName}`}</p>
-                        <span
-                            className={styles.shortName}
-                        >{data.userTag}</span>
+                        {isLoading ?
+
+                            <Skeleton
+                                width={144}
+                                height={16}
+                                style={{ borderRadius: '50px' }}
+                            />
+                            :
+                            <>
+                                <p
+                                    className={styles.name}
+                                >{`${data.firstName} ${data.lastName}`}</p>
+                                <span
+                                    className={styles.shortName}
+                                >{data.userTag}</span>
+                            </>
+                        }
                     </div>
                     <span
                         className={styles.tag}
                     >
-                        {data.department}
+                        {
+                            isLoading ?
+                                <Skeleton
+                                    width={80}
+                                    height={12}
+                                    style={{ marginTop: '6px', borderRadius: '50px' }}
+                                />
+                                :
+                                data.department
+                        }
                     </span>
                 </div>
             </div>

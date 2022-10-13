@@ -7,12 +7,14 @@ type InitStateType = {
     sortMode: undefined | 1 | 2,
     search: string,
     filterDepartament: Endpoints
+    loading: boolean
 }
 
 const initialState: InitStateType = {
     sortMode: undefined,
     search: '',
-    filterDepartament: Endpoints.ALL
+    filterDepartament: Endpoints.ALL,
+    loading: true
 }
 
 export const appStorage = createSlice({
@@ -28,6 +30,10 @@ export const appStorage = createSlice({
         setFilterDepartament: (state, action) => {
             state.filterDepartament = action.payload
         },
+        setLoading: (state, action) => {
+            state.loading = action.payload
+        },
+
     }
 })
 
@@ -36,9 +42,11 @@ export const {
     setSearch,
     setSortMode,
     setFilterDepartament,
+    setLoading
 } = appStorage.actions
 
 export const getSearch = (state: RootState) => state.appStorage.search
 export const getSortMode = (state: RootState) => state.appStorage.sortMode
 export const getFilterDepartament = (state: RootState) => state.appStorage.filterDepartament
+export const getLoading = (state: RootState) => state.appStorage.loading
 export default appStorage.reducer
