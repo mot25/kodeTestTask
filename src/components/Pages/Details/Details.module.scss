@@ -1,0 +1,120 @@
+@import '../../App/App.scss';
+
+.Details {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.backWrapper {
+    position: absolute;
+    top: 28px;
+    left: 32px;
+}
+
+.top {
+    background-color: $BG_INPUT;
+    padding-top: 72px;
+    padding-bottom: 32px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex: 1;
+}
+
+.avatarWrapper {
+    width: 104px;
+    height: auto;
+    border-radius: 64px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+
+.avatar {
+    width: 100%;
+    height: 100%;
+}
+
+.top_content {}
+
+.nameWrapper {
+    margin-top: 24px;
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 12px;
+}
+
+.name {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+    text-align: center;
+    color: $BLACK_TEXT;
+    margin-right: 8px;
+}
+
+.nickname {
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 22px;
+    color: $GRAY_TEXT;
+}
+
+.departament {
+    text-align: center;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    color: $TAG_COLOR;
+}
+
+.bottom {
+    padding-top: 27px;
+}
+
+.bottomWtapperItem {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left {}
+
+.leftContent {
+    display: flex;
+    align-items: center;
+}
+
+.iconWrapper {}
+
+.leftText {}
+
+.right {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: $GRAY_TEXT;
+    ;
+}
+
+.bottomWtapperItem {
+    margin-bottom: 50px;
+}
+
+.left {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: $BLACK_TEXT;
+}
+
+.leftContent {
+    display: flex;
+    align-items: center;
+}
+
+.iconWrapper {}
+
+.leftText {
+    margin-left: 13px;
+}

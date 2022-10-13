@@ -76,7 +76,7 @@ const Users = (props: Props) => {
         key === 'lastName' ||
         key === 'userTag'
       ) {
-        return obj[key].includes(searchKey)
+        return obj[key].toUpperCase().includes(searchKey.toUpperCase())
       }
     }));
   }
