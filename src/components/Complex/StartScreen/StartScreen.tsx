@@ -49,7 +49,6 @@ const StartScreen = (props: Props) => {
         dispatch(setIsInternet(navigator.onLine))
     }, [])
     const { data, isLoading, isError, refetch } = useGeUsersQuery({}, {
-        pollingInterval: 300000
     })
 
     dispatch(setItems(data))
@@ -75,7 +74,6 @@ const StartScreen = (props: Props) => {
                 >
                     <Route
                         index
-                        // path={RoutesPage.PAGE_USERS}
                         element={<Users />}
                     />
                 </Route>
@@ -85,10 +83,10 @@ const StartScreen = (props: Props) => {
                         <Details />
                     }
                 />
-                <Route
+                {/* <Route
                     path={RoutesPage.ALL}
                     element={<Users />}
-                />
+                /> */}
             </Routes>
         </div>
     )

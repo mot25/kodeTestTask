@@ -2,8 +2,8 @@ import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 
 import { Endpoints } from '../../../../../Constant/constant';
-import { useAppDispatch } from '../../../../../hooks/useStore';
-import { setFilterDepartament } from '../../../../../store/slice/appStorage';
+import { useAppDispatch, useAppSelector } from '../../../../../hooks/useStore';
+import { getFilterDepartament, setFilterDepartament } from '../../../../../store/slice/appStorage';
 import styles from './Tabs.module.scss';
 
 type Props = {}
@@ -89,7 +89,8 @@ const TabsList: TabsType[] = [
 
 const Tabs = (props: Props) => {
     const dispatch = useAppDispatch()
-    const [selectTab, setSelectTab] = useState<Endpoints>(Endpoints.ALL)
+    const depeportament = useAppSelector(getFilterDepartament)
+    const [selectTab, setSelectTab] = useState<Endpoints>(depeportament)
     useEffect(() => {
         dispatch(setFilterDepartament(selectTab))
     }, [selectTab])
