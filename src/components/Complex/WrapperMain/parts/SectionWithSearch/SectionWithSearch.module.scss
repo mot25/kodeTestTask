@@ -4,6 +4,10 @@
     display: flex;
 }
 
+.SectionWithSearchWrapper {
+    flex: 1;
+}
+
 .top_title {
     margin: 18px 0;
     font-weight: 700;
@@ -18,11 +22,13 @@
         fill: $PURPLE_BOTTOM_LINE;
     }
 }
+
 .__activeSort {
-      path {
-          fill: $PURPLE_BOTTOM_LINE;
-      }
+    path {
+        fill: $PURPLE_BOTTOM_LINE;
+    }
 }
+
 @keyframes active_loading {
     0% {
         transform: scale(1);

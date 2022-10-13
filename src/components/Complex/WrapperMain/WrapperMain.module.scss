@@ -1,3 +1,10 @@
 .outletWrapper {
     overflow-y: auto;
+
+}
+
+.top {
+    max-height: 100px;
+    display: flex;
+    flex-direction: column;
 }

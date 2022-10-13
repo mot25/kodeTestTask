@@ -3,8 +3,8 @@ import { Route, Routes } from 'react-router-dom';
 
 import { Endpoints, RoutesPage } from '../../../Constant/constant';
 import { useAppDispatch, useAppSelector } from '../../../hooks/useStore';
-import { UserServices } from '../../../Services/UserServices';
-import { getGlobalError, setGlobalError, setLoading } from '../../../store/slice/appStorage';
+import { useGeUsersQuery, UserServices } from '../../../Services/UserServices';
+import { getGlobalError, getIsInternet, setGlobalError, setIsInternet, setLoading } from '../../../store/slice/appStorage';
 import { getUsers, setItems } from '../../../store/slice/fetchUsers';
 import { Users } from '../../Pages/Users';
 import { WrapperMain } from '../WrapperMain';
@@ -14,13 +14,17 @@ type Props = {}
 
 const StartScreen = (props: Props) => {
     const errorGlobalResponse = useAppSelector(getGlobalError)
+    const isInternet = useAppSelector(getIsInternet)
     const dispatch = useAppDispatch()
     window.addEventListener('online', () => {
-        getAllUsers()
+        refetch()
+        dispatch(setIsInternet(true))
+
     });
-    // window.addEventListener('offline', () => {
-    //     dispatch(setGlobalError(true))
-    // });
+    window.addEventListener('offline', () => {
+        dispatch(setIsInternet(false))
+
+    });
     const getAllUsers = async () => {
         dispatch(setLoading(true))
         try {
@@ -41,12 +45,24 @@ const StartScreen = (props: Props) => {
     }
 
     useEffect(() => {
-        // getAllUsers()
+        dispatch(setIsInternet(navigator.onLine))
     }, [])
+    const { data, isLoading, isError, refetch } = useGeUsersQuery({}, {
+        pollingInterval: 300000
+    })
+
+    dispatch(setItems(data))
+    dispatch(setLoading(isLoading))
+    dispatch(setGlobalError(isError))
+    useEffect(() => {
+        dispatch(setItems(data))
+    }, [data])
+    useEffect(() => {
+        // refetch()
+    }, [errorGlobalResponse])
     useEffect(() => {
         getAllUsers()
-
-    }, [errorGlobalResponse])
+    }, [])
     return (
         <div
             className={styles.container}

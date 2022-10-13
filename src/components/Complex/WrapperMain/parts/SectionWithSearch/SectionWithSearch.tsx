@@ -69,7 +69,6 @@ const SectionWithSearch = (props: Props) => {
     return () => clearTimeout(delayDebounceFn)
   }, [value.value])
 
-
   useEffect(() => {
     return () => {
       clearTimeout(timeout)
