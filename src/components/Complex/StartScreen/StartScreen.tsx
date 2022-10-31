@@ -13,10 +13,8 @@ import styles from './StartScreen.module.scss';
 
 type Props = {}
 
-const StartScreen = (props: Props) => {
-    const errorGlobalResponse = useAppSelector(getGlobalError)
-    const isInternet = useAppSelector(getIsInternet)
-    const dispatch = useAppDispatch()
+const StartScreen = () => {
+     const dispatch = useAppDispatch()
     window.addEventListener('online', () => {
         refetch()
         dispatch(setIsInternet(true))
@@ -52,14 +50,15 @@ const StartScreen = (props: Props) => {
     const { data, isError, isLoading, refetch } = useGeUsersQuery({}, {
     })
 
-    dispatch(setItems(data))
-    dispatch(setLoading(isLoading))
-    dispatch(setGlobalError(isError))
+
     useEffect(() => {
         dispatch(setItems(data))
     }, [data])
 
     useEffect(() => {
+        dispatch(setItems(data))
+        dispatch(setLoading(isLoading))
+        dispatch(setGlobalError(isError))
         getAllUsers()
     }, [])
     return (

@@ -131,14 +131,17 @@ const Users = (props: Props) => {
   const { data, isError, refetch } = useGeUsersQuery({}, {
     pollingInterval: 300000
   })
-  dispatch(setGlobalError(isError))
-  // dispatch(setLoading(isLoading))
-  dispatch(setItems(data))
+
 
   const fnGetUsers = async () => {
     refetch()
   }
 
+  useEffect(() => {
+    dispatch(setGlobalError(isError))
+    // dispatch(setLoading(isLoading))
+    dispatch(setItems(data))
+  }, [])
  
   return (
     <div
