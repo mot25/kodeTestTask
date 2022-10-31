@@ -62,11 +62,9 @@ const SectionWithSearch = (props: Props) => {
       if (value.value.length > 1 || value.value.length === 0) {
         setErrorSearch(undefined)
       } else {
-
         setErrorSearch("Поиск состоит из 2 символов")
       }
     }, 1000)
-
     return () => clearTimeout(delayDebounceFn)
   }, [value.value])
 

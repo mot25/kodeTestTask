@@ -139,7 +139,6 @@ const Users = (props: Props) => {
 
   useEffect(() => {
     dispatch(setGlobalError(isError))
-    // dispatch(setLoading(isLoading))
     dispatch(setItems(data))
   }, [])
  
