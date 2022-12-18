@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/static/css/main.30e46c26.css",
-    "main.js": "/static/js/main.776b5df1.js",
-    "static/js/787.87e605c1.chunk.js": "/static/js/787.87e605c1.chunk.js",
-    "static/media/Goose.svg": "/static/media/Goose.ac856b27879d49b947b6f3bd1a1a29d1.svg",
-    "static/media/Magnifier.svg": "/static/media/Magnifier.c2dd582534a3919f8191ba797b4dbf42.svg",
-    "static/media/Aliens.svg": "/static/media/Aliens.ca9d921f6165c77e3c4cc132205ca2bd.svg",
-    "static/media/Phone.svg": "/static/media/Phone.b4c1686bdf2067168983616964b9470a.svg",
-    "static/media/Sort.svg": "/static/media/Sort.4a17b1f0121a14f57aea033420ce9775.svg",
-    "static/media/Favorite.svg": "/static/media/Favorite.9e4ac22f4832ac3dd9c8ee1965b0152a.svg",
-    "static/media/Search.svg": "/static/media/Search.548e99eeb4f51bc7ec390d6568502d6e.svg",
-    "static/media/BackArrow.svg": "/static/media/BackArrow.04c46e2fdcf9cbdce7773aee6e0b9bc3.svg",
-    "static/media/closeModal.svg": "/static/media/closeModal.f3d811a71c774e39ef09709075ee2867.svg",
-    "index.html": "/index.html",
-    "main.30e46c26.css.map": "/static/css/main.30e46c26.css.map",
-    "main.776b5df1.js.map": "/static/js/main.776b5df1.js.map",
-    "787.87e605c1.chunk.js.map": "/static/js/787.87e605c1.chunk.js.map"
+    "main.css": "/kodeTestTask/static/css/main.30e46c26.css",
+    "main.js": "/kodeTestTask/static/js/main.4323c74e.js",
+    "static/js/787.87e605c1.chunk.js": "/kodeTestTask/static/js/787.87e605c1.chunk.js",
+    "static/media/Goose.svg": "/kodeTestTask/static/media/Goose.ac856b27879d49b947b6f3bd1a1a29d1.svg",
+    "static/media/Magnifier.svg": "/kodeTestTask/static/media/Magnifier.c2dd582534a3919f8191ba797b4dbf42.svg",
+    "static/media/Aliens.svg": "/kodeTestTask/static/media/Aliens.ca9d921f6165c77e3c4cc132205ca2bd.svg",
+    "static/media/Phone.svg": "/kodeTestTask/static/media/Phone.b4c1686bdf2067168983616964b9470a.svg",
+    "static/media/Sort.svg": "/kodeTestTask/static/media/Sort.4a17b1f0121a14f57aea033420ce9775.svg",
+    "static/media/Favorite.svg": "/kodeTestTask/static/media/Favorite.9e4ac22f4832ac3dd9c8ee1965b0152a.svg",
+    "static/media/Search.svg": "/kodeTestTask/static/media/Search.548e99eeb4f51bc7ec390d6568502d6e.svg",
+    "static/media/BackArrow.svg": "/kodeTestTask/static/media/BackArrow.04c46e2fdcf9cbdce7773aee6e0b9bc3.svg",
+    "static/media/closeModal.svg": "/kodeTestTask/static/media/closeModal.f3d811a71c774e39ef09709075ee2867.svg",
+    "index.html": "/kodeTestTask/index.html",
+    "main.30e46c26.css.map": "/kodeTestTask/static/css/main.30e46c26.css.map",
+    "main.4323c74e.js.map": "/kodeTestTask/static/js/main.4323c74e.js.map",
+    "787.87e605c1.chunk.js.map": "/kodeTestTask/static/js/787.87e605c1.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.30e46c26.css",
-    "static/js/main.776b5df1.js"
+    "static/js/main.4323c74e.js"
   ]
 }
